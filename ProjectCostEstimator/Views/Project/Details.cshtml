@@ -1,0 +1,126 @@
+﻿@model ProjectCostEstimator.Models.Project
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+
+    </dl>
+    <h4>Zadania</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Nazwa zadania
+            </th>
+            <th>
+                Opis zadania
+            </th>
+            <th>
+                Użyty koszt za godzinę
+            </th>
+            <th>
+                Czas pracy
+            </th>
+            <th>
+                Obliczony koszt
+            </th>
+        </tr>
+        @foreach (var item in Model.Tasks)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTaskDefinition.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectTaskDefinition.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsedPricePerHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkingTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalculatedCost)
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.ActionLink("Dodaj", "AddProjectTask", new { id = Model.ID })
+
+    <h4>Technologie</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Nazwa technologii
+            </th>
+            <th>
+                Opis technologii
+            </th>
+            <th>
+                Typ technologii
+            </th>
+            <th>
+                Użyty mnożnik ceny
+            </th>
+            <th>
+                Użyta cena inicjalna
+            </th>
+        </tr>
+        @foreach (var item in Model.Technologies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechnologyDefinition.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechnologyDefinition.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechnologyDefinition.TechnologyKind)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsedPriceMultiplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsedBasePrice)
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.ActionLink("Dodaj", "AddTechnology", new { id = Model.ID })
+    <hr />
+</div>
+<p>
+    @Html.ActionLink("Edytuj dane podstawowe", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Powrót do listy", "Index")
+</p>
